@@ -1,0 +1,111 @@
+<div class="container">
+
+  <form (ngSubmit)="submitUserName()">
+
+    <div class="formContent">
+
+      <input name="userName" id="userName" [(ngModel)]="user.userName" required type="text" class="form-contol" placeholder="Buscar usuario de GitHub">
+      <button type="submit">Buscar</button>
+
+    </div>
+
+  </form>
+
+  <div class="userInfo" *ngIf="gitUser">
+
+    <div>
+      <img src="{{gitUser.avatar_url}}" alt="">
+      <h3>{{gitUser.login | titlecase}}</h3>
+      <p>Bio: {{gitUser.bio}}</p>
+    </div>
+
+    <div>
+      <form (ngSubmit)="filterRepo()">
+        <input name="textSearch" id="textSearch" [(ngModel)]="searchText.textSearch" type="text" placeholder="Buscar repositorio">
+        <button type="submit">Buscar repo</button>
+      </form>
+    </div>
+
+    <div>
+      <input
+        type="checkbox"
+        [(ngModel)]="statusCheck1"
+        (change)="filterLang(languageOneUser, statusCheck1)"/>
+      <p>{{ languageOneUser }}</p>
+    </div>
+
+    <div>
+      <input
+        type="checkbox"
+        [(ngModel)]="statusCheck2"
+        (change)="filterLang(languageTwoUser, statusCheck2)"/>
+      <p>{{ languageTwoUser }}</p>
+    </div>
+
+    <div>
+      <input
+        type="checkbox"
+        [(ngModel)]="statusCheck3"
+        (change)="filterLang(languageThreeUser, statusCheck3)"/>
+      <p>{{ languageThreeUser }}</p>
+    </div>
+
+  </div>
+
+  <div *ngIf="gitHubRepos">
+    <table>
+
+      <thead>
+      <tr>
+        <th>
+          Nombre del repo
+          <i (click)="reverseColumName()" class="gg-arrow-align-v"></i>
+        </th>
+        <th>Descripcion</th>
+        <th>Enlace al repo</th>
+        <th>Estrellas</th>
+        <th>Lenguajes de programacion</th>
+      </tr>
+      </thead>
+
+      <tbody *ngIf="gitHubRepos && !reposUser && !langRepos">
+      <tr *ngFor="let repo of gitHubRepos">
+        <td>{{repo.name}}</td>
+        <td>{{repo.description}}</td>
+        <td>
+          <a href="{{repo.html_url}}">{{repo.html_url.slice(19)}}</a>
+        </td>
+        <td>{{repo.stargazers_count}}</td>
+        <td>{{repo.language}}</td>
+      </tr>
+      </tbody>
+
+      <tbody *ngIf="reposUser && !langRepos">
+      <tr *ngFor="let repo of reposUser">
+        <td>{{repo.name}}</td>
+        <td>{{repo.description}}</td>
+        <td>
+          <a href="{{repo.html_url}}">{{repo.html_url.slice(19)}}</a>
+        </td>
+        <td>{{repo.stargazers_count}}</td>
+        <td>{{repo.language}}</td>
+      </tr>
+      </tbody>
+
+      <tbody *ngIf="!reposUser && langRepos">
+      <tr *ngFor="let repo of langRepos">
+        <td>{{repo.name}}</td>
+        <td>{{repo.description}}</td>
+        <td>
+          <a href="{{repo.html_url}}">{{repo.html_url.slice(19)}}</a>
+        </td>
+        <td>{{repo.stargazers_count}}</td>
+        <td>{{repo.language}}</td>
+      </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
