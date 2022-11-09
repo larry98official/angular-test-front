@@ -2,6 +2,15 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.8.
 
+## Install Node Modules
+
+Run `npm install` to install all node_modules.
+
+## Add your GitHub access token
+
+Add your GitHub access token in front-test-angular/src/enviroments/environment.ts.
+the token is required to allow the API endopoint to work correctly.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
